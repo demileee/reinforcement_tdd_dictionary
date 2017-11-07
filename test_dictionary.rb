@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './dictionary.rb'
+require 'pry'
 
 class TestDictionary < MiniTest::Test
   def setup
@@ -51,22 +52,23 @@ class TestDictionary < MiniTest::Test
   end
 
   def test_finds_entry
-    @d.add('fish' => 'aquatic animal')
+    @d.add({'fish' => 'aquatic animal'})
     assert_equal({'fish' => 'aquatic animal'}, @d.find('fish'))
   end
 
   def test_finds_multiple_matches_from_prefix_and_returns_entire_entry
-    @d.add('fish' => 'aquatic animal')
-    @d.add('fiend' => 'wicked person')
-    @d.add('great' => 'remarkable')
+    @d.add({'fish' => 'aquatic animal'})
+    @d.add({'fiend' => 'wicked person'})
+    @d.add({'great' => 'remarkable'})
     assert_equal({'fish' => 'aquatic animal', 'fiend' => 'wicked person'}, @d.find('fi'))
   end
 
   def test_lists_words_alphabetically
-    @d.add('zebra' => 'African land animal with stripes')
-    @d.add('fish' => 'aquatic animal')
-    @d.add('apple' => 'fruit')
+    @d.add({'zebra' => 'African land animal with stripes'})
+    @d.add({'fish' => 'aquatic animal'})
+    @d.add({'apple' => 'fruit'})
     # Enter %w(apple fish zebra) in irb and see what happens
     assert_equal %w(apple fish zebra), @d.keywords
   end
+
 end
